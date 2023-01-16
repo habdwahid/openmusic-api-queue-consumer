@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "consumer": "node /src/consumer"
+    "start": "node app"
   },
   "keywords": [],
   "author": "",

@@ -11,7 +11,7 @@ class PlaylistsService {
       values: [playlistId],
     }
     const querySongs = {
-      text: 'SELECT songs.id, songs.title, songs.performer FROM songs LEFT JOIN songs_playlist ON songs_playlist.song_id = songs.id WHERE songs_playlist.playlist_id = $1',
+      text: 'SELECT songs.id, songs.title, songs.performer FROM songs_playlist LEFT JOIN songs ON songs.id = songs_playlist.song_id WHERE songs_playlist.playlist_id = $1',
       values: [playlistId],
     }
 
@@ -19,9 +19,11 @@ class PlaylistsService {
     const songs = await this._pool.query(querySongs)
 
     return {
-      id: playlist.rows[0].id,
-      name: playlist.rows[0].name,
-      songs: songs.rows,
+      playlist: {
+        id: playlist.rows[0].id,
+        name: playlist.rows[0].name,
+        songs: songs.rows,
+      },
     }
   }
 }
